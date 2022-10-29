@@ -8,9 +8,15 @@ let app = require('./app');
 let should = chai.should();
 
 
+const Tiri = {
+    name: 'Tiri',
+    age: 12,
+    color: ['black', 'white'],
+}
+
 chai.use(chaiHttp);
 //Our parent block
-describe('Books', () => {
+describe('Cats', () => {
 /*
   * Test the GET /
   */
@@ -26,4 +32,16 @@ describe('Books', () => {
       });
   });
 
+
+  describe('Get /api/cats', () => {
+    it('should return a list of cats', (done) => {
+        chai.request(app)
+        .get('/api/cats')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.eql([Tiri]);
+            done();
+        });
+    })
+  })
 });
