@@ -34,13 +34,14 @@ describe('Cats', () => {
 
 
   describe('Get /api/cats', () => {
-    it('should return a list of cats', (done) => {
+    it('should return a list of cats', async () => {
+       await app.db.addCat(Tiri);
+
         chai.request(app)
         .get('/api/cats')
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.eql([Tiri]);
-            done();
         });
     })
   })
