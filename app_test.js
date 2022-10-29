@@ -30,7 +30,6 @@ describe('Cats', () => {
             .get('/')
             .end((err, res) => {
                 res.should.have.status(200);
-                res.text.should.eq("Hello World!")
                 done();
             });
       });
