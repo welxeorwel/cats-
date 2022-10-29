@@ -8,6 +8,9 @@ class Database{
     async getCats(){
         return this.cats;
     }
+    async clear(){
+        this.cats = [];
+    }
 }
 
 module.exports = Database;
