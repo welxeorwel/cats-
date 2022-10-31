@@ -11,7 +11,14 @@
   async function getCats() {
     return fetchJSON('/api/cats')
   }
-
+  function formatList(list) {
+    if(list.length == 3){
+      return `${list[0]}, ${list[1]}, and ${list[2]}` 
+    }
+    else if(list.length == 2){
+      return `${list[0]} and ${list[1]}`
+    }
+  }
   let cats = []
   onMount(async () => {
     cats = await getCats()
@@ -32,12 +39,12 @@
   {:then value} 
     <pre>{ JSON.stringify(value, 2, 2) }</pre>
     <ul>
-      <li>Onyxia, 7 years old, has a beautiful mane colored as white, black, and orange</li>
-      <li>Tiri, 12 years old, has a beautiful mane colored as white and black</li>
+      <!-- <li>Onyxia, 7 years old, has a beautiful mane colored as white, black, and orange</li>
+      <li>Tiri, 12 years old, has a beautiful mane colored as white and black</li> -->
     </ul>
     <ul>
-    {#each value as v}
-      <li>{JSON.stringify(v)}</li>
+    {#each value as cat}
+      <li>{cat.name}, {cat.age} years old, has a beautiful mane colored as {formatList(cat.colors)}</li>
     {/each}
     </ul>
   {:catch error}
