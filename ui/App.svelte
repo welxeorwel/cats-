@@ -1,4 +1,7 @@
 <script>
+  import { onMount } from "svelte";
+
+
   async function fetchJSON(url) {
     const data = await fetch(url);
     return data.json()
@@ -8,23 +11,28 @@
     return fetchJSON('/api/cats')
   }
 
-  let cats = Promise.resolve([]);
-  // let cats = getCats();
-	// import Button from "./Button.svelte";
+  let cats;
+  onMount(async () => {
+    cats = await getCats()
+  })
+
 </script>
 
 <style>
   main {
     font-family: sans-serif;
-    text-align: center;
+    text-align: left;
   }
 </style>
 
 <main>
 	<h1>Hello CodeSandbox</h1>
 	<h2>Start editing to see some magic happen!</h2>
-
-  {#await cats then x }
-	<pre>{ JSON.stringify(x, 2, 2) }</pre>
+  {#await cats}
+Waitimng
+  {:then value} 
+<pre>{ JSON.stringify(cats, 2, 2) }</pre> 
+{:catch error}
+{error}
   {/await}
 </main>
