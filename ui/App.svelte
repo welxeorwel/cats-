@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { each } from "svelte/internal";
 
 
   async function fetchJSON(url) {
@@ -11,11 +12,10 @@
     return fetchJSON('/api/cats')
   }
 
-  let cats;
+  let cats = []
   onMount(async () => {
     cats = await getCats()
   })
-
 </script>
 
 <style>
@@ -26,13 +26,21 @@
 </style>
 
 <main>
-	<h1>Hello CodeSandbox</h1>
-	<h2>Start editing to see some magic happen!</h2>
+	<h1>Cats</h1>
   {#await cats}
-Waitimng
+    Waitimng
   {:then value} 
-<pre>{ JSON.stringify(cats, 2, 2) }</pre> 
-{:catch error}
-{error}
+    <pre>{ JSON.stringify(value, 2, 2) }</pre>
+    <ul>
+      <li>Onyxia, 7 years old, has a beautiful mane colored as white, black, and orange</li>
+      <li>Tiri, 12 years old, has a beautiful mane colored as white and black</li>
+    </ul>
+    <ul>
+    {#each value as v}
+      <li>{JSON.stringify(v)}</li>
+    {/each}
+    </ul>
+  {:catch error}
+    {error}
   {/await}
 </main>
