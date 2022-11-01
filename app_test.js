@@ -97,7 +97,7 @@ describe('Cats', () => {
   describe('GET /api/cats/:id/reviews', () => {
     it('should show the cat review', async () => {
         await app.db.addCat(Tiri);
-        await app.db.addReview(TiriReview);
+        await app.db.addReview(Tiri.name,TiriReview);
 
         chai.request(app)
         .get('/api/cats/tiri/reviews')

@@ -34,5 +34,18 @@ app.get("/api/cats/:id", async (req, res) => {
     res.status(404);
     return res.json({status: "not found"});
     }
+    
+})
+app.get("/api/cats/:id/reviews", async (req, res) => {
+    const id = req.params.id;
+    const reviews  = await db.getReviews(id);
+    console.log(id,reviews) 
+    if(reviews){
+        return res.json(reviews);
+    }
+    else{
+    res.status(404);
+    return res.json({status: "not found"});
+    }
 })
 module.exports = app;
