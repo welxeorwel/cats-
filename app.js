@@ -26,7 +26,6 @@ app.post("/api/cats", async (req, res) => {
 app.get("/api/cats/:id", async (req, res) => {
     const id = req.params.id;
     const cat  = await db.findCat(id);
-    console.log(id,cat) 
     if(cat){
         return res.json(cat);
     }
