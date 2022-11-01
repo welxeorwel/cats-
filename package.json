@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha *_test.js",
+    "test": "mocha --exit *_test.js",
     "build": "rollup -c"
   },
   "author": "Daniel Balabanov <welxeorwel@gmail.com>",

@@ -18,11 +18,10 @@ class Database{
     }
     async addReview(name,review){ 
         const cat = await this.findCat(name);
-        console.log(name,cat)
         cat.review = review;
     }
     async getReviews(name){
-        console.log(this.cats)
+    
         const cat = await this.findCat(name);
         return [cat.review]
     }
