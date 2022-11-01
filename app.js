@@ -39,7 +39,6 @@ app.get("/api/cats/:id", async (req, res) => {
 app.get("/api/cats/:id/reviews", async (req, res) => {
     const id = req.params.id;
     const reviews  = await db.getReviews(id);
-    console.log(id,reviews) 
     if(reviews){
         return res.json(reviews);
     }
@@ -47,5 +46,11 @@ app.get("/api/cats/:id/reviews", async (req, res) => {
     res.status(404);
     return res.json({status: "not found"});
     }
+})
+app.post("/api/cats/:id/reviews", async (req, res) => {
+    const id = req.params.id;
+    const review = req.body;
+    await db.addReview(id,review);
+    return res.json({status: 'ok'});
 })
 module.exports = app;

@@ -117,7 +117,21 @@ describe('Cats', () => {
 
   describe('POST /api/cats/:id/reviews', () => {
     it('should add review of the cat', async () => {
-        throw new Error('not implemented!')    
+        await app.db.addCat(Tiri);
+        chai.request(app)
+        .post('/api/cats/tiri/reviews')
+        .send(TiriReview)
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.eql({status: 'ok'});
+        });
+
+        chai.request(app)
+        .get('/api/cats/tiri/reviews')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.eql([TiriReview]);
+        });    
     })
   })
 });
