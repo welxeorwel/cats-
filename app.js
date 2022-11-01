@@ -23,14 +23,16 @@ app.post("/api/cats", async (req, res) => {
     return res.json({status: 'ok'});
    
 })
-app.get("/api/cats/tiri", async (req, res) => {
-    const cats = await db.getCats();
-    const cat  = cats[0]; 
-    return res.json(cat);
-})
-app.get("/api/cats/onixia", async (req, res) => {
-    const cats = await db.getCats();
+app.get("/api/cats/:id", async (req, res) => {
+    const id = req.params.id;
+    const cat  = await db.findCat(id);
+    console.log(id,cat) 
+    if(cat){
+        return res.json(cat);
+    }
+    else{
     res.status(404);
     return res.json({status: "not found"});
+    }
 })
 module.exports = app;
