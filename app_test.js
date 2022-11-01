@@ -14,6 +14,11 @@ const Tiri = {
     colors: ['black', 'white'],
 }
 
+const TiriReview = {
+    header: 'I just can\'t get enough of this cat!',
+    contents: 'She is the cutest fucking cat around, so so sweet, wow, what a cat!!'
+}
+
 chai.use(chaiHttp);
 //Our parent block
 describe('Cats', () => {
@@ -66,6 +71,53 @@ describe('Cats', () => {
             res.should.have.status(200);
             res.body.should.eql([Tiri]);
         });
+    })
+  })
+
+  describe('GET /api/cats/:id', () => {
+    it('should show the cat', async () => {
+        await app.db.addCat(Tiri);
+
+        chai.request(app)
+        .get('/api/cats/tiri')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.eql(Tiri);
+        });
+
+        chai.request(app)
+        .get('/api/cats/onixia')
+        .end((err, res) => {
+            res.should.have.status(404);
+            res.body.should.eql({status: 'not found'});
+        });
+    })
+  })
+
+  describe('GET /api/cats/:id/reviews', () => {
+    it('should show the cat review', async () => {
+        await app.db.addCat(Tiri);
+        await app.db.addReview(TiriReview);
+
+        chai.request(app)
+        .get('/api/cats/tiri/reviews')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.eql([TiriReview]);
+        });
+
+        chai.request(app)
+        .get('/api/cats/onixia/reviews')
+        .end((err, res) => {
+            res.should.have.status(404);
+            res.body.should.eql({status: 'not found'});
+        });
+    })
+  })
+
+  describe('POST /api/cats/:id/reviews', () => {
+    it('should add review of the cat', async () => {
+        throw new Error('not implemented!')    
     })
   })
 });

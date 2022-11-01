@@ -23,5 +23,14 @@ app.post("/api/cats", async (req, res) => {
     return res.json({status: 'ok'});
    
 })
-
+app.get("/api/cats/tiri", async (req, res) => {
+    const cats = await db.getCats();
+    const cat  = cats[0]; 
+    return res.json(cat);
+})
+app.get("/api/cats/onixia", async (req, res) => {
+    const cats = await db.getCats();
+    res.status(404);
+    return res.json({status: "not found"});
+})
 module.exports = app;

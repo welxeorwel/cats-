@@ -8,6 +8,9 @@ class Database{
     async getCats(){
         return this.cats;
     }
+    async addReview(){
+        return this.review;
+    }
     async clear(){
         this.cats = [];
     }
