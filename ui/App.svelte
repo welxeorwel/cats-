@@ -35,18 +35,14 @@
 <main>
 	<h1>Cats</h1>
   {#await cats}
-    Waitimng
+    Waiting
   {:then value} 
     <pre>{ JSON.stringify(value, 2, 2) }</pre>
-    <ul>
-      <!-- <li>Onyxia, 7 years old, has a beautiful mane colored as white, black, and orange</li>
-      <li>Tiri, 12 years old, has a beautiful mane colored as white and black</li> -->
-    </ul>
-    <ul>
+    <div>
     {#each value as cat}
-      <li>{cat.name}, {cat.age} years old, has a beautiful mane colored as {formatList(cat.colors)}</li>
+      <div>{cat.name}, {cat.age} years old, has a beautiful mane colored as {formatList(cat.colors)}</div>
     {/each}
-    </ul>
+    </div>
   {:catch error}
     {error}
   {/await}
